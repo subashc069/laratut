@@ -9,7 +9,7 @@ class Project extends Model
 {
     //mass assignmenet
     protected $fillable =[
-        'title', 'description'
+        'owner_id', 'title', 'description'
     ];
 
     public function tasks(){

@@ -6,7 +6,12 @@ use Illuminate\Http\Request;
 use App\Project;
 
 class ProjectsController extends Controller
-{
+{   
+    // User authentication
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
     public function index(){
 
         $projects = Project::all();
@@ -47,10 +52,15 @@ class ProjectsController extends Controller
     }
 
     public function store(){
+        
         $validated = request()->validate([
             'title' =>'required|min:3|max:255',
             'description'=> 'required',
         ]);
+
+        $validated['owner_id'] = auth()->id();
+
+        
         Project::create($validated);
 
 
