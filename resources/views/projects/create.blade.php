@@ -15,16 +15,7 @@
         <div>
           <button type="submit">Create Project</button>  
         </div>
-        <div>
-            @if ($errors->any())
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>    
-            @endif
-            
-        </div>
+        @include('errors')
     </form>
 
    
