@@ -16,12 +16,7 @@ class ProjectPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function viewAny(User $user)
-    {
-        //
-        //return $project->owner_id == 2;
-    }
-
+    
     /**
      * Determine whether the user can view the project.
      *

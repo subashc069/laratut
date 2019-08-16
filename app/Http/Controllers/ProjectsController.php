@@ -15,7 +15,7 @@ class ProjectsController extends Controller
     public function index(){
 
         $projects = Project::where('owner_id', auth()->id())->get();
-
+        
         return view('projects.index', compact('projects'));
     }
 
@@ -35,30 +35,32 @@ class ProjectsController extends Controller
 
     public function edit(Project $project){
         
-
+        $this->authorize('update',$project);
         return view('projects.edit', compact('project'));
     }
 
     public function update(Project $project){
 
+        $this->authorize('update',$project);
         request()->validate([
             'title' =>'required|min:3|max:225',
             'description'=> 'required|min:3',
         ]);
+        
         $project->update(request(['title','description']));
 
         return redirect('/projects');
     }
 
     public function destroy(Project $project){
-        
+        $this->authorize('update',$project);
         $project->delete();
 
         return redirect('/projects');
     }
 
     public function store(){
-        
+        $this->authorize('update',$project);
         $validated = request()->validate([
             'title' =>'required|min:3|max:255',
             'description'=> 'required',
