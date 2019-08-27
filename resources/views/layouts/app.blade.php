@@ -74,6 +74,15 @@
 
         <main class="py-4">
             @yield('content')
+            <div class="container">
+                @if (auth()->user())
+                    <div class="py-4" style="text-align:center; background-color:grey; font-size:3rem">
+                        <a href="/projects/create" style="display:block">Create Task</a>
+                        <a href="/projects" style="display:block">View Tasks</a>
+                    </div>   
+                @endif
+               
+            </div>
         </main>
     </div>
 </body>
