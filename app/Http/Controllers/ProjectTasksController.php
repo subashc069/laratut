@@ -22,5 +22,23 @@ class ProjectTasksController extends Controller
         return back();
     }
 
+    public function edit(Project $project)
+    {
+        # code...
+        $this->authorize('update',$project);
+        return view('projects.edit', compact('project'));
+    }
+
+    public function update(Project $project)
+    {
+        # code...
+        $this->authorize('update',$project);
+
+        $validated = $request->validated();       
+        $project->update(request(['title','description']));
+
+        return redirect('/projects');
+    }
+
     
 }

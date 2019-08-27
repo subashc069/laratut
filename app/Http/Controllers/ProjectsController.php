@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Project;
 use App\Http\Requests\StoreProjects;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Mail\ProjectCreated;
+use Mail;
 
 class ProjectsController extends Controller
 {   
@@ -49,12 +51,9 @@ class ProjectsController extends Controller
 
     public function update(UpdateProjectRequest $request, Project $project)
     {
-
         $this->authorize('update',$project);
-
         $validated = $request->validated();       
         $project->update(request(['title','description']));
-
         return redirect('/projects');
     }
 
@@ -62,7 +61,6 @@ class ProjectsController extends Controller
     {
         $this->authorize('update',$project);
         $project->delete();
-
         return redirect('/projects');
     }
 
@@ -70,8 +68,10 @@ class ProjectsController extends Controller
     {
         $validated = $request->validated();
         $validated['owner_id'] = auth()->id();
-        
-        Project::create($validated);
+        $project = Project::create($validated);
+        Mail::to($project->owner->email)->send(
+            new ProjectCreated($project)
+        );
         return redirect('/projects');
     }
 }
