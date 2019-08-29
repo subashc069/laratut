@@ -17,7 +17,8 @@ class ProjectTasksController extends Controller
         //     'project_id' => $project->id,
         //     'description' => request('description')
         // ]);
-        $attributes = $request->validated();   
+        $attributes = $request->validated(); 
+          
         $project->addTask($attributes);
         return back();
     }

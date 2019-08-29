@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Mail\TaskCompleted;
 use App\Task;
+use App\Project;
+use Mail;
 
 class CompletedTasksController extends Controller
 {
    public function store(Task $task)
    {
-      $task->complete(); 
+      $task->complete();
       return back();
    }
 

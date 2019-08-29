@@ -7,6 +7,7 @@ use App\Project;
 use App\Http\Requests\StoreProjects;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Mail\ProjectCreated;
+use App\Mail\ProjectDeleted;
 use Mail;
 
 class ProjectsController extends Controller
@@ -61,6 +62,9 @@ class ProjectsController extends Controller
     {
         $this->authorize('update',$project);
         $project->delete();
+        Mail::to($project->owner->email)->send(
+            new ProjectDeleted($project)
+        );
         return redirect('/projects');
     }
 
