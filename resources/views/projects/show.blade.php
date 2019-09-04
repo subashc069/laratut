@@ -16,23 +16,17 @@
                 <form action="/completed-tasks/{{ $task->id}}" method="POST" >
                     @if ($task->completed)
                         @method('DELETE')
-                        
                     @endif
                     @csrf
-                    
-                    
                     <label for="completed" class="{{$task->completed ? 'is-complete' : ''}}" >
                         <input type="checkbox" name="completed" onChange="this.form.submit()" {{ $task->completed ? 'checked': ''}}>
                         {{ $task->description}}
                     </label>
-
                 </form>
             </div>
-                
             @endforeach
         </div>   
     @endif
-    
     {{-- add new task form --}}
     <form action="/projects/{{$project->id}}/tasks" method="post">
         @csrf
